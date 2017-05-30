@@ -1,0 +1,43 @@
+<project name="Library" basedir="." default="run">
+
+    <property name="version">1.0.0</property>
+    <property name="dir.src">src/sample</property>
+    <property name="dir.build">build</property>
+    <property name="dir.libs">libs</property>
+    <property name="dir.build.classes">${dir.build}/classes</property>
+    <property name="file.jar">Library-${version}.jar</property>
+    <path id="classpath">
+        <fileset dir="${dir.libs}" includes="**/*.jar"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="${dir.build}"/>
+    </target>
+
+    <target name="init" depends="clean">
+        <mkdir dir="${dir.build}"/>
+        <mkdir dir="${dir.build.classes}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${dir.src}" destdir="${dir.build.classes}" classpathref="classpath" includeantruntime="false"/>
+        <javac srcdir="${dir.src}/Authentication" destdir="${dir.build.classes}" classpathref="classpath" includeantruntime="false"/>
+        <javac srcdir="${dir.src}/Panel" destdir="${dir.build.classes}" classpathref="classpath" includeantruntime="false"/>
+        <javac srcdir="${dir.src}/Utils" destdir="${dir.build.classes}" classpathref="classpath" includeantruntime="false"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar basedir="${dir.build.classes}" file="${file.jar}" >
+            <fileset file="${dir.src}/res/*" />
+            <manifest>
+                <attribute name="Main-Class" value="sample.Main" />
+            </manifest>
+            <zipgroupfileset dir="${dir.libs}" includes="*.jar"/>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="${file.jar}" fork="true"/>
+    </target>
+
+</project>
