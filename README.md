@@ -1,9 +1,9 @@
 # Library Manager
 Library Manger is a sample application of library management applications.
 
-Library manager is design based on Google Material Design and using JFoenix library.
+Library manager is designed based on Google Material Design and it uses JavaFx and JFoenix library.
 
-I dont use any DBMS for managing data
+It isn't used of any DBMS in this application ( only uses files and directories )
 
 ![library1](http://imgh.us/library1.png)
 
